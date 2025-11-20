@@ -2,7 +2,7 @@
 title: 面板 panel,card,collapse
 toc: true
 ---
- 
+
 # 面板
 
 > 面板是一个包含普通面板（panel）、卡片面板（card）、折叠面板（collapse）的集合
@@ -44,7 +44,7 @@ toc: true
       </div>
     </div>
   </div>
-</div> 
+</div>
   </textarea>
 </pre>
 
@@ -57,8 +57,8 @@ toc: true
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <div class="layui-colla-title">Collapse Title 1</div>
-    <div class="layui-colla-content">
-      <p>Content 1</p>
+    <div class="layui-colla-content layui-show">
+      <p>Content 1 （添加 layui-show 类设置初始展开）</p>
     </div>
   </div>
   <div class="layui-colla-item">
@@ -127,7 +127,7 @@ toc: true
 
 <!-- import layui -->
   </textarea>
-</pre>    
+</pre>
 
 <h3 id="collapse-tree" lay-toc="{level: 2}">折叠面板嵌套</h3>
 
@@ -141,33 +141,33 @@ toc: true
   <div class="layui-colla-item">
     <div class="layui-colla-title">文学家</div>
     <div class="layui-colla-content layui-show">
-    
+
       <div class="layui-collapse" lay-accordion>
         <div class="layui-colla-item">
           <div class="layui-colla-title">唐代</div>
           <div class="layui-colla-content layui-show">
-            
+
             <div class="layui-collapse" lay-accordion>
               <div class="layui-colla-item">
                 <div class="layui-colla-title">杜甫</div>
                 <div class="layui-colla-content layui-show">
-                  一代诗圣
+                  唐代著名诗人，与李白齐名
                 </div>
               </div>
               <div class="layui-colla-item">
                 <div class="layui-colla-title">李白</div>
                 <div class="layui-colla-content">
-                  <p>一代诗仙</p>
+                  <p>唐代著名诗人，与杜甫齐名</p>
                 </div>
               </div>
               <div class="layui-colla-item">
                 <div class="layui-colla-title">王勃</div>
                 <div class="layui-colla-content">
-                  <p>千古绝唱《滕王阁序》</p>
+                  <p>著有千古名篇《滕王阁序》</p>
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
         <div class="layui-colla-item">
@@ -217,7 +217,7 @@ toc: true
 `element.render('collapse', filter);`
 
 - 参数 `'collapse'` : 渲染折叠面板的固定值
-- 参数 `filter` : 对应折叠面板容器 `lay-filter` 的属性值
+- 参数 `filter` : 对应折叠面板容器 `lay-filter` 的属性值或<sup>2.9.15+</sup>指定元素的 jQuery 对象
 
 在元素加载完毕后，`element` 模块会自动对元素进行一次渲染。而当元素为动态插入时，需通过该方法完成初始化渲染。
 
@@ -227,7 +227,7 @@ toc: true
 `element.on('collapse(filter)', callback)`
 
 - 参数 `collapse(filter)` 是一个特定结构。
-  - `collapse` 为折叠面板点击事件固定值； 
+  - `collapse` 为折叠面板点击事件固定值；
   - `filter` 为导航容器属性 `lay-filter` 对应的值。
 - 参数 `callback` 为事件执行时的回调函数，并返回一个 `object` 类型的参数。
 
@@ -276,7 +276,7 @@ layui.use(function(){
     console.log(data.show); // 得到当前面板的展开状态，true or false
     console.log(data.title); // 得到当前点击面板的标题区域对象
     console.log(data.content); // 得到当前点击面板的内容区域对象
-    
+
     // 显示状态，仅用于演示
     layer.msg('展开状态：'+ data.show);
   });

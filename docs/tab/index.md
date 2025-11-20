@@ -2,8 +2,10 @@
 title: 选项卡组件 tab
 toc: true
 ---
- 
-# 选项卡组件
+
+# ~~选项卡组件~~
+
+> 📣 <span style="color: #ff5722;">升级提示：我们在 2.10 版本中新增了全新的 tabs 标签页组件，用于替代原 `element` 模块中的 `tab` 组件，建议过渡到全新的 tabs 组件，旧的 ~~tab~~ 组件将在后续合适的版本中移除。</span> [前往全新 tabs 组件](../tabs/)
 
 > 选项卡组件 `tab` 是指可进行标签页切换的一段容器，常广泛应用于 Web 页面。由于为了向下兼容等诸多历史原因，在 2.x 版本中，`tab` 组件属于 `element` 模块的子集。
 
@@ -110,8 +112,8 @@ tab 组件提供了三种 UI 风格，分别为：
 | var element = layui.element | 获得 `element` 模块。 |
 | [element.render(\'tab\', filter)](#element.render) | 渲染 tab 组件 |
 | [element.tabAdd(filter, options)](#element.tabAdd) | 添加 tab 选项 |
-| [element.tabDelete(filter, layid)](#element.tabDelete) | 删除 tab 选项 |
-| [element.tabChange(filter, layid)](#element.tabChange) | 切换 tab 选项 |
+| [element.tabDelete(filter, layid, force)](#element.tabDelete) | 删除 tab 选项 |
+| [element.tabChange(filter, layid, force)](#element.tabChange) | 切换 tab 选项 |
 | [element.tab(options)](#element.tab) | 绑定自定义 tab 元素 |
 
 <h3 id="options" lay-toc="{level: 2}" class="ws-bold">元素属性</h3>
@@ -152,14 +154,14 @@ tab 组件提供了三种 UI 风格，分别为：
 
 `element.render('tab', filter);`
 
-- 参数 `'tab'` 是渲染 tab 的固定值
-- 参数 `filter` : 对应 tab 容器 `lay-filter` 的属性值
+- 参数 `'tab'` 是渲染 tab 的固定值。
+- 参数 `filter` : 对应 tab 容器 `lay-filter` 的属性值或<sup>2.9.15+</sup>指定元素的 jQuery 对象。
 
 tab 组件会在元素加载完毕后，自动对 tab 元素完成一次渲染，因此该方法主要用于对动态插入的 tab 元素的初始化渲染。
 
 ```
 <div id="test"></div>
- 
+
 <!-- import layui -->
 <script>
 layui.use(function(){
@@ -183,7 +185,7 @@ layui.use(function(){
 `element.tabAdd(filter, options);`
 
 - 参数 `filter` : tab 容器（`class="layui-tab"`）的 `lay-filter` 属性值
-- 参数 `options` : 添加 tab 时的属性可选项，见下表：
+- 参数 `options` : 添加 tab 时的属性选项，见下表：
 
 | options | 描述 | 类型 | 默认 |
 | --- | --- | --- | --- |
@@ -197,20 +199,24 @@ layui.use(function(){
 
 <h3 id="element.tabDelete" lay-toc="{level: 2}" class="ws-bold">删除 tab</h3>
 
-`element.tabDelete(filter, layid);`
+`element.tabDelete(filter, layid, force);`
 
 - 参数 `filter` : tab 容器（`class="layui-tab"`）的 `lay-filter` 属性值
 - 参数 `layid` : 选项卡标题元素的 `lay-id` 属性值
+- 参数 `force` <sup>2.9.21+</sup>
+: 是否强制删除 tab。若设置 `true` 将忽略 `tabBeforeDelete` 事件行为。默认 `false`
 
 该方法用于删除 tab 选项。用法详见 : [#示例](#examples)
 
 
 <h3 id="element.tabChange" lay-toc="{level: 2}" class="ws-bold">切换 tab</h3>
 
-`element.tabChange(filter, layid);`
+`element.tabChange(filter, layid, force);`
 
 - 参数 `filter` : tab 容器（`class="layui-tab"`）的 `lay-filter` 属性值
 - 参数 `layid` : 选项卡标题元素的 `lay-id` 属性值
+- 参数 `force` <sup>2.9.15+</sup>
+: 是否强制执行 tab 切换。设置 `true` 将忽略 `tabBeforeChange` 事件行为。默认 `false`
 
 该方法用于切换到对应的 tab 选项。用法详见 : [#示例](#examples)
 
@@ -219,7 +225,7 @@ layui.use(function(){
 
 `element.tab(options);`
 
-- 参数 `options` : 属性可选项，见下表：
+- 参数 `options` : 属性选项，见下表：
 
 | options | 描述 | 类型 |
 | --- | --- | --- |
@@ -280,7 +286,7 @@ layui.use(function(){
 
 ```
 var element = layui.element;
- 
+
 // tab 切换事件
 element.on('tab(filter)', function(data){
   console.log(this); // 当前 tab 标题所在的原始 DOM 元素
@@ -290,6 +296,31 @@ element.on('tab(filter)', function(data){
 });
 ```
 
+<h3 id="on-tabBeforeChange" lay-toc="{level: 2}" class="ws-bold">tab 切换前的事件 <sup>2.9.15+</sup></h3>
+
+`element.on('tabBeforeChange(filter)', callback);`
+
+- 参数 `tabBeforeChange(filter)` 是一个特定结构。
+  - `tabBeforeChange` 为 tab 切换前事件固定值；
+  - `filter` 为 tab 容器属性 `lay-filter` 对应的值。
+- 参数 `callback` 为事件执行时的回调函数，并返回一个 `object` 类型的参数。
+
+点击 tab 选项切换前触发。
+
+```
+var element = layui.element;
+
+// tab 切换前的事件
+element.on('tabBeforeChange(filter)', function(data){
+  console.log(data.elem); // 得到当前的 tab 容器
+  console.log(data.from.index); // 得到切换前的 tab 项所在下标
+  console.log(data.from.id); // 得到切换前的 tab 项所在ID
+  console.log(data.to.index); // 得到切换后的 tab 项所在下标
+  console.log(data.to.id); // 得到切换后的 tab 项所在ID
+
+  if(data.to.id === 'home') return false; // 返回 false 时阻止切换到对应的选项卡
+});
+```
 
 <h3 id="on-tabDelete" lay-toc="{level: 2}" class="ws-bold">tab 删除事件</h3>
 
@@ -304,7 +335,7 @@ element.on('tab(filter)', function(data){
 
 ```
 var element = layui.element;
- 
+
 // tab 删除事件
 element.on('tabDelete(filter)', function(data){
   console.log(data.index); // 得到被删除的 tab 项的所在下标
@@ -318,23 +349,56 @@ element.on('tabDelete(filter)', function(data){
 `element.on('tabBeforeDelete(filter)', callback);`
 
 - 参数 `tabBeforeDelete(filter)` 是一个特定结构。
-  - `tabBeforeDelete` 为 tab 删除事件固定值；
+  - `tabBeforeDelete` 为 tab 删除前事件固定值；
   - `filter` 为 tab 容器属性 `lay-filter` 对应的值。
 - 参数 `callback` 为事件执行时的回调函数，并返回一个 `object` 类型的参数。
 
-点击 tab 选项删除前触发。
+点击 tab 选项删除前触发。 示例：
 
-```
-var element = layui.element;
- 
-// tab 删除前的事件
-element.on('tabBeforeDelete(filter)', function(data){
-  console.log(data.index); // 得到被删除的 tab 项的所在下标
-  console.log(data.elem); // 得到当前的 tab 容器
-  console.log(data.id); // 得到被删除的 tab 项的 ID(2.9.11+)
+<pre class="layui-code" lay-options="{preview: true, layout: ['code', 'preview'], tools: ['full'], done: function(obj){
+  obj.render();
+}}">
+  <textarea>
+<div class="layui-tab" lay-allowclose="true" lay-filter="test-tabs">
+  <ul class="layui-tab-title">
+    <li lay-id="1" class="layui-this">标签1</li>
+    <li lay-id="2">标签2</li>
+    <li lay-id="3">标签3</li>
+    <li lay-id="4">标签4</li>
+    <li lay-id="5">标签5</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">删除标签，弹出确认提示框</div>
+    <div class="layui-tab-item">内容-2</div>
+    <div class="layui-tab-item">内容-3</div>
+    <div class="layui-tab-item">内容-4</div>
+    <div class="layui-tab-item">内容-5</div>
+  </div>
+</div>
 
-  if(data.id === 'home') return false; // 返回 false 时阻止关闭对应的选项卡
+<!-- import layui -->
+<script>
+layui.use(function(){
+  var layer = layui.layer;
+  var element = layui.element;
+
+  // tab 删除前的事件
+  element.on('tabBeforeDelete(test-tabs)', function(data){
+    console.log(data.index); // 得到被删除的 tab 项的所在下标
+    console.log(data.elem); // 得到当前的 tab 容器
+    console.log(data.id); // 得到被删除的 tab 项的 ID(2.9.11+)
+
+    // 确认删除
+    layer.confirm(`确认删除【${this.innerText}】吗？`, function (index) {
+      element.tabDelete('test-tabs', data.id, true); // 确认后强制删除 - 2.9.21+
+      layer.close(index);
+    });
+
+    return false; // 返回 false 时阻止默认删除选项卡行为
+  });
 });
-```
+</script>
+  </textarea>
+</pre>
 
 

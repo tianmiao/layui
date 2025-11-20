@@ -40,13 +40,14 @@ toc: true
 | [treeTable.expandAll(id, expandFlag)](#expandAll)  | 展开或关闭全部节点。 |
 | [treeTable.setRowChecked(id, opts)](#setRowChecked) | 设置行选中状态 |
 | [treeTable.checkAllNodes(id, checked)](#checkAllNodes) | 全选或取消全选 |
+| [treeTable.checkStatus(id, includeHalfCheck)](#checkStatus) | 获取选中行相关数据 |
 | [treeTable.on(\'event(filter)\', callback)](#on) | treeTable 相关事件 |
 
 <h3 id="render" lay-toc="{level: 2}">渲染</h3>
 
 `treeTable.render(options);`
 
-- 参数 `options` : 基础属性配置项。[#详见属性](#options)
+- 参数 `options` : 基础属性选项。[#详见属性](#options)
 
 该组件渲染的使用方式与 `table` 组件完全相同。
 
@@ -68,7 +69,7 @@ toc: true
 | 仅数据重载 | treeTable.reloadData(id, options) |
 
 - 参数 `id` : treeTable 渲染时的 id 属性值
-- 参数 `options` : 基础属性配置项。[#详见属性](#options)
+- 参数 `options` : 基础属性选项。[#详见属性](#options)
 
 使用方式与 `table` 组件完全相同，具体用法可参考：[table 重载](../table/#reload)
 
@@ -143,7 +144,7 @@ console.log(obj);
 
 - 参数 `id` : treeTable 渲染时的 `id` 属性值
 - 参数 `filter` : 过滤函数
-- 参数 `opts` : 该方法的属性可选项，详见下表：
+- 参数 `opts` : 该方法的属性选项，详见下表：
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -273,7 +274,8 @@ treeTable.addNodes('test', {
 | index | 节点对应的行下标，一般可通过 `<tr>` 元素的 `data-index` 属性获得 | number | - |
 | expandFlag | 设置展开或关闭状态，若为 `true` 则表示展开；`false` 则为关闭；`null` 则表示切换 | boolean/null | - |
 | inherit | 子节点是否继承父节点的展开或关闭状态，`expandFlag` 属性必须为 `boolean` 型时才有效。 | boolean | `false` |
-| callbackFlag | 是否触发事件（`beforeExpand,onExpand`） | boolean | `false` |
+| callbackFlag | 是否触发 tree.callback 事件（`beforeExpand,onExpand`） | boolean | `false` |
+| done <sup>2.11.3+</sup>| 节点操作完成后的回调函数 | (tableId, trData, trExpand) => void | - |
 
 若操作的节点不是一个父节点，则返回 `null`，否则返回操作之后的折叠状态。
 
@@ -352,6 +354,24 @@ treeTable.render({
 });
 // 勾选或取消勾选单个节点
 treeTable.checkAllNodes('test', true);  // 全选 
+```
+
+<h3 id="checkStatus" lay-pid="api" class="ws-anchor ws-bold">获取行选中相关数据</h3>
+
+`treeTable.checkStatus(id, includeHalfCheck);`
+
+- 参数 `id` : treeTable 渲染时的 `id` 属性值
+- 参数 `includeHalfCheck` : 是否包含半选数据
+
+```js
+// 渲染
+treeTable.render({
+  elem: '', // 绑定元素选择器
+  id: 'test', // 自定义 id 索引
+  // 其他属性 …
+});
+
+treeTable.checkStatus('test', true);  // 包含半选 
 ```
 
 

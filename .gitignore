@@ -1,25 +1,31 @@
-*.iml
-.idea/
-.ipr
-.iws
 *~
 ~*
-*.diff
-*.patch
+
 *.bak
 *.bat
-.DS_Store
-Thumbs.db
-.svn/
+*.diff
+*.err
+*.log
+*.patch
+*.swo
 *.swp
+*.zip
+
+.DS_Store
+.env
 .nojekyll
 .project
-.settings/
-node_modules/
+.settings
+Thumbs.db
+
+.idea/
+.svn/
 _site/
-.git/
-package-lock.json
+.vscode/
+node_modules/
+
+# ESLint cache
+.eslintcache
 
 # Published folders
-release/
-v/
+/release/

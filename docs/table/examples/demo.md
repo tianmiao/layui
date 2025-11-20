@@ -36,7 +36,7 @@
   </div>
 !}}</script>
  
-<script type="text/html" id="barDemo">
+<script type="text/html" id="toolDemo">
   <div class="layui-clear-space">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs" lay-event="more">
@@ -83,7 +83,7 @@ layui.use(['table', 'dropdown'], function(){
       {field:'checkin', title:'打卡', width: 100, sort: true, totalRow: '{{!{{= parseInt(d.TOTAL_NUMS) }} 次!}}'},
       {field:'ip', title:'IP', width: 120},
       {field:'joinTime', title:'加入时间', width: 120},
-      {fixed: 'right', title:'操作', width: 134, minWidth: 125, toolbar: '#barDemo'}
+      {fixed: 'right', title:'操作', width: 134, minWidth: 125, templet: '#toolDemo'}
     ]],
     done: function(){
       var id = this.id;
@@ -277,7 +277,7 @@ layui.use(['table', 'dropdown'], function(){
     console.log(obj);
     if(event === 'email-tips'){
       layer.alert(layui.util.escape(JSON.stringify(obj.col)), {
-        title: '当前列属性配置项'
+        title: '当前列属性选项'
       });
     }
   });
@@ -316,11 +316,19 @@ layui.use(['table', 'dropdown'], function(){
             });
           } 
         },
+        id: 'dropdown-table-tool',
         align: 'right', // 右对齐弹出
         style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);' // 设置额外样式
-      })
+      });
     }
   });
+
+  // table 滚动时移除内部弹出的元素
+  var tableInst = table.getOptions('test');
+  tableInst.elem.next().find('.layui-table-main').on('scroll', function() {
+    dropdown.close('dropdown-table-tool');
+  });
+
  
   // 触发表格复选框选择
   table.on('checkbox(test)', function(obj){

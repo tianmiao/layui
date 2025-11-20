@@ -142,6 +142,50 @@ table.render({
 
 </td>
     </tr>
+    <tr>
+<td>
+
+[**ajax**](#options.ajax) <sup>2.12+</sup>
+
+</td>
+<td>
+
+<div class="ws-anchor" id="options.ajax">
+  自定义 ajax 请求，用于发送异步请求。
+</div>
+
+```js
+table.render({
+  // 自定义 ajax 请求
+  // origOptions - 包含了原始的请求参数
+  // type - 执行 ajax 请求的来源，'table' 或 'treeNodes'
+  ajax: function (origOptions, type) {
+    $.ajax({
+      url: origOptions.url,
+      data: origOptions.data,
+      dataType: origOptions.dataType,
+    })
+    .done(function (data) {
+      // 调用原始的 success 回调
+      origOptions.success(data);
+    })
+    .fail(function (xhr, status, error) {
+      // 调用原始的 error 回调
+      origOptions.error(xhr, status, error);
+    })
+    .always(function () {
+      // 调用原始的 complete 回调
+      if (typeof origOptions.complete === "function") {
+        origOptions.complete(); 
+      }
+    });
+  }
+});
+
+```
+
+</td>
+    </tr>
   </tbody>
 </table>
 
@@ -155,7 +199,7 @@ table.render({
 | LAY_DISABLED | 当前行是否禁止选择 | 可读可写 |
 | LAY_INDEX | 当前行下标。每页重新从零开始计算 | 只读 |
 | LAY_NUM | 当前行序号 | 只读 |
-| LAY_COL | 当前列的表头属性配置项 | 只读 |
+| LAY_COL | 当前列的表头属性选项 | 只读 |
 
 示例一: 在返回的数据中设置特定字段：
 

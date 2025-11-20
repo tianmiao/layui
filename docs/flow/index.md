@@ -2,7 +2,7 @@
 title: 流加载 flow
 toc: true
 ---
- 
+
 # 流加载
 
 > 流加载 `flow` 是用于在*信息流*和*图片列表*场景中的滚动按需加载，对前后端的体验和性能优化具有一定帮助。
@@ -26,6 +26,7 @@ toc: true
 | API | 描述 |
 | --- | --- |
 | var flow = layui.flow | 获得 `flow` 模块。 |
+| [基础接口](../component/#export) <sup>2.13+</sup> | 该组件由 `component` 构建，因此继承其提供的基础接口。|
 | [flow.load(options)](#load) | 信息流加载，核心方法。 |
 | [flow.lazyimg(options)](#lazyimg) | 图片懒加载。 |
 
@@ -33,7 +34,7 @@ toc: true
 
 `flow.load(options);`
 
-- 参数 `options` : 基础属性配置项。[#详见属性](#options)
+- 参数 `options` : 基础属性选项。[#详见属性](#options)
 
 信息流是分页的另一种表现形式，新加载的内容不替换原有的内容，而是随着滚动条滚动而追加显示。[#详见示例](#examples)
 
@@ -47,7 +48,7 @@ toc: true
 
 `flow.lazyimg(options);`
 
-- 参数 `options` : 属性配置项。可选项见下表。
+- 参数 `options` : 属性选项。可选项见下表。
 
 | 属性名 | 描述 |
 | --- | --- |
@@ -74,7 +75,7 @@ toc: true
   <img lay-src="https://unpkg.com/outeres@0.0.11/demo/wallpaper.jpg">
 </div>
 
-<!-- import layui --> 
+<!-- import layui -->
 <script>
 layui.use('flow', function(){
   var flow = layui.flow;

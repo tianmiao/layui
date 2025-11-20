@@ -2,7 +2,7 @@
 title: 轮播组件 carousel
 toc: true
 ---
- 
+
 # 轮播组件
 
 > 轮播组件 `carousel` 主要适用于跑马灯/轮播等交互场景。它并非单纯地为焦点图而生，准确地说，它可以满足任何内容的轮播式切换操作，亦可胜任 `fullpage`（全屏上下轮播）的需求。
@@ -25,6 +25,7 @@ div[carousel-item]>*:nth-child(2n+1){background-color: #16baaa;}
 | API | 描述 |
 | --- | --- |
 | var carousel = layui.carousel | 获得 `carousel` 模块。 |
+| [基础接口](../component/#export) <sup>2.13+</sup> | 该组件由 `component` 构建，因此继承其提供的基础接口。|
 | [var inst = carousel.render(options)](#render) | carousel 组件渲染，核心方法。 |
 | [inst.reload(options)](#reload) | 轮播实例重载 |
 | [inst.goto(index)](#goto) <sup>2.8+</sup> | 轮播切换到特定下标 |
@@ -33,7 +34,7 @@ div[carousel-item]>*:nth-child(2n+1){background-color: #16baaa;}
 
 `carousel.render(options);`
 
-- 参数 `options` : 基础属性配置项。[#详见属性](#options)
+- 参数 `options` : 基础属性选项。[#详见属性](#options)
 
 该方法返回一个实例对象，包含操作当前实例的相关方法成员。
 
@@ -46,7 +47,7 @@ console.log(inst); // 得到当前实例对象
 
 `inst.reload(options);`
 
-- 参数 `options` : 基础属性配置项。[#详见属性](#options)
+- 参数 `options` : 基础属性选项。[#详见属性](#options)
 
 通过渲染返回的实例对象，可获得重载方法，用于实现对实例的属性重载。
 

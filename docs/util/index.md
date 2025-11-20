@@ -34,7 +34,7 @@ toc: true
 
 `util.countdown(options);`
 
-- 参数 `options` <sup>2.8.9+</sup>: 属性配置项。可选项详见下表：
+- 参数 `options` <sup>2.8.9+</sup>: 属性选项。可选项详见下表：
 
 | 属性 | 描述 |
 | --- | --- |
@@ -101,7 +101,7 @@ var result = util.timeAgo(1672531200000); // 2023-01-01 00:00:00
 
 - 参数 `time` : 毫秒数或日期对象
 - 参数 `format` : 日期字符格式。默认格式：`yyyy-MM-dd HH:mm:ss` 。可自定义，如： `yyyy年MM月dd日`
-- 参数 `options` <sup>2.8.13+</sup> : 该方法的属性可选项，详见下表：
+- 参数 `options` <sup>2.8.13+</sup> : 该方法的属性选项，详见下表：
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -179,7 +179,7 @@ var str2 = util.unescape('&lt;div&gt;123&lt;/div&gt;'); // 返回： <div>123</d
 
 `util.openWin(options);`
 
-- 参数 `options` : 属性配置项。可选项详见下表
+- 参数 `options` : 属性选项。可选项详见下表
 
 | 属性 | 描述 |
 | --- | --- |
@@ -245,10 +245,15 @@ layui.use('util', function(){
 
    // 自定义：触发事件的元素属性名、触发事件的方式
   util.on('lay-active', {
-    e3: layui.throttle(function(othis) {
-      console.log(this);
+    e3: function(othis, e) {
+      console.log(othis); // 当前触发事件的元素的 jQuery 对象
+
+      // e 为当前事件对象，此处演示阻止事件冒泡（比如委托父元素和子元素共用了同一事件名）
+      layui.stope(e);
+
+      // 演示提示
       layer.tips(othis.html(), this);
-    }, 3000) // 3s 内不重复执行
+    }
   }, {
     trigger: 'mouseenter' // 鼠标移入时触发事件
   });

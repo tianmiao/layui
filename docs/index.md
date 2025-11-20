@@ -18,7 +18,7 @@ toc: true
       <td>用途：用于更简单快速地构建网页界面</td>
     </tr>
     <tr>
-      <td>环境：全部主流 Web 浏览器（IE8 以下除外）</td>
+      <td>环境：<a href="/notes/browser-support.html" target="_blank">详见不同版本的浏览器兼容说明</a> <sup>N</sup></td>
       <td>特性：原生态开发 / 轻量级模块化 / 外简内丰 / 开箱即用</td>
     </tr>
   </tbody>
@@ -60,11 +60,12 @@ npm i layui
 
 ### 🌕 第三方 CDN 方式引入：
 
-> UNPKG 和 CDNJS 均为第三方免费 CDN，资源通过 NPM/GitHub 进行同步。另外还可以采用国内的 [Staticfile CDN](https://www.staticfile.org/)。
+> 以下均为知名第三方免费开放的公共资源 CDN，每期版本通过 NPM / GitHub 自动同步。
 
 <div class="layui-btn-container">
   <a class="layui-btn layui-btn-primary layui-border-black" href="https://unpkg.com/browse/layui/dist/" target="_blank" rel="nofollow">UNPKG</a>
-  <a class="layui-btn layui-btn-primary" style="border-color: #E64E3D; color: #E64E3D;" href="https://cdnjs.com/libraries/layui" target="_blank" rel="nofollow">CDNJS</a>
+  <a class="layui-btn layui-btn-primary" style="border-color: #FF6934; color: #FF6934;" href="https://cdnjs.com/libraries/layui" target="_blank" rel="nofollow">CDNJS</a>
+  <a class="layui-btn layui-btn-primary" style="border-color: #E64E3D; color: #E64E3D;" href="https://www.jsdelivr.com/package/npm/layui" target="_blank" rel="nofollow">JSDELIVR</a>
 </div>
 
 

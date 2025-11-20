@@ -63,6 +63,20 @@
 </td>
     </tr>
     <tr>
+<td>closeOnClick <sup>2.9.18+</sup></td>
+<td>
+  
+下拉面板打开后，再次点击目标元素时是否关闭该面板。
+
+</td>
+<td>boolean</td>
+<td>
+
+`true`
+
+</td>
+    </tr>
+    <tr>
 <td>show</td>
 <td>
   
@@ -288,10 +302,11 @@ ready: function(elemPanel, elem){
 </div>
 
 ```
-click: function(data, othis){
+click: function(data, othis, event){
   console.log(data); // 当前所点击的菜单项对应的数据
   console.log(othis); // 当前所点击的菜单项元素对象
   console.log(this.elem); // 当前组件绑定的目标元素对象，批量绑定中常用
+  console.log(event); // 事件对象 2.9.18+
   
   // 若返回 false，则点击选项可不关闭面板 --- 2.8+
   /*
@@ -313,6 +328,22 @@ click: function(data, othis){
 ```
 close: function(elem){
   console.log(elem); // 当前组件绑定的目标元素对象
+}   
+```
+
+</td>
+    </tr>
+    <tr>
+<td>onClickOutside <sup>2.9.18+</sup></td>
+<td colspan="3">
+  
+点击 dropdown 外部时的回调函数，返回 `false` 可阻止关闭。
+
+```
+onClickOutside: function(event){
+  // 参数 event 即为当前点击的事件对象
+  // …
+  // return false; // 若返回 false，当点击面板外部时可阻止关闭
 }   
 ```
 

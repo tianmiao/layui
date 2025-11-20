@@ -1,6 +1,8 @@
-# 🍀 Layui Issue 贡献指南
+# 🍀 Layui 贡献指南
 
-为了提升沟通效率，请花几分钟时间仔细阅读本文档。遵循这些指南有助于表达您尊重管理和开发这个开源项目的贡献者。作为回报，他们也会以同样的尊重来处理或评估您的问题和功能请求。
+为了提升沟通效率，请花几分钟时间仔细阅读本文档。遵循这些指南有助于表达您尊重管理和开发这个开源项目的贡献者。作为回报，他们也会以同样的尊重来处理或评估您的 Issue 和 Pull Request。
+
+## Issue
 
 ### 创建 Issue 之前
 
@@ -38,8 +40,71 @@ Layui 的 issue 只受理 「Bug 报告」和「功能请求」。如果是关�
 - 在 issue 交流过程中，若议题已经得到解决，请主动关闭 issue。
 - 大家本着相互尊重、理解和友善的态度，共同维护 Layui 来之不易的良好的社区氛围，谢谢 💖。
 
-
 ### 其他参考资料
+
 1. [**贡献者行为准则**](CODE_OF_CONDUCT.md)
 2. [**提问的智慧**](https://github.com/tvvocold/How-To-Ask-Questions-The-Smart-Way) @tvvocold
 3. [**为什么需要最小重现**](https://antfu.me/posts/why-reproductions-are-required-zh) @antfu
+
+## Pull Request
+
+Layui 采用灵活的分支管理策略，我们鼓励您选择对应的分支发送 Pull Request。
+
+为了使得 Reivew 和 Merge 的工作流程更加流畅，请仔细阅读以下全部说明：
+
+### 分支说明
+
+- `main` 作为主干分支，代表的是项目当前最新版本，接受 feature 和 hotfix 。
+- `*.x-stable` 作为历史稳定版本分支，如 `2.x-stable` 即代表 2.x 系列稳定版本，只接受 hotfix，不接受 feature 。
+- `dev/*` 作为未来大版本开发分支，如 `dev/3.0` 即代表 3.0 的开发版本，接受 feature 和 hotfix，但不保证稳定性。
+
+其余日常分支均以 `<type>/<scope>` 规则命名，根据 `<type>` 决定内容修改类型。
+
+### 操作步骤
+
+Layui 使用 Node.js 工具链进行构建与测试，在您参与项目开发之前，请先确保已安装 Node.js 运行环境，推荐版本：`>=20.17.0`
+
+#### 1. 安装依赖
+
+将 Layui 项目 clone 到本地后，请务必使用 `npm ci` 安装依赖，确保所有贡献者与 CI 环境基本一致。
+
+```bash
+npm ci
+```
+
+> 注：若是 Layui 2.x 版本，需使用 `npm install`
+
+#### 2. 开发阶段
+
+依赖安装完毕后，即可启动开发模式
+
+```bash
+npm run dev
+```
+
+开发过程中，我们推荐您在编辑器安装 Prettier 插件，以保持代码风格一致。
+
+完成开发后，请对代码进行静态分析和测试。
+
+```bash
+# lint
+npm run lint
+
+# test
+npm test
+```
+
+上述流程通过，即可提交代码。在 pre-commit 阶段，git hooks 会再次自动检查代码是否符合规范，并自动 lint fix 和格式化代码，对于无法自动 fix 的代码，请按照提示进行手动修改。
+
+#### 3. 提交代码
+
+Layui 遵循 [约定式提交](https://www.conventionalcommits.org/zh-hans/v1.0.0/) 规范，您的提交信息（git commit `message` 和 PR `title`）都应遵循这一规范。
+
+- 创建 PR 时，请在 description 项严格遵循预设的「内容模板」规范填写，以提供必要的信息，如：变更说明、预览地址等。
+- 提交 PR 后，确保已通过 Github CI 检查，若失败，可查看具体原因进行调整。
+
+确保以上所有步骤都符合要求后，即可等待项目成员对您的代码进行 Review 及合并评估。
+
+### 其他参考资料
+
+- [Conventional Commits](https://www.conventionalcommits.org/zh-hans/v1.0.0/)
